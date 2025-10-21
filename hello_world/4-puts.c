@@ -3,6 +3,8 @@
 /**
  * main - Entry point
  *
+ * Description: prints a specific string using puts and ends with newline.
+ *
  * Return: Always 0 (Success)
  */
 int main(void)
