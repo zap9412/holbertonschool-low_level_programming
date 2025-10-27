@@ -4,12 +4,12 @@
  * _isupper - vérifie si un caractère est une majuscule
  * @c: caractère à vérifier
  *
- * Retour: 1 si c est une majuscule, 0 sinon
+ * Return: 1 si c est une majuscule, 0 sinon
  */
 int _isupper(int c)
 {
-    if (c >= 'A' && c <= 'Z')
-        return (1);
-    else
-        return (0);
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	else
+		return (0);
 }
