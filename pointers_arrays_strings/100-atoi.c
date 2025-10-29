@@ -14,28 +14,33 @@ int _atoi(char *s)
 	while (s[i] != '\0')
 	{
 		if (s[i] == '-')
+		{
 			sign *= -1;
+		}
 		else if (s[i] >= '0' && s[i] <= '9')
 		{
 			found = 1;
 			digit = s[i] - '0';
 
-			/* On applique la valeur selon le signe immédiatement pour éviter overflow */
+			/* Vérification overflow pour INT_MAX */
 			if (sign == 1)
 			{
 				if (num > (2147483647 - digit) / 10)
-					return (2147483647); /* Clamp INT_MAX */
+					return (2147483647);
 			}
+			/* Vérification overflow pour INT_MIN */
 			else
 			{
 				if (num < (-2147483648 + digit) / 10)
-					return (-2147483648); /* Clamp INT_MIN */
+					return (-2147483648);
 			}
 
 			num = num * 10 + sign * digit;
 		}
 		else if (found)
+		{
 			break;
+		}
 		i++;
 	}
 
