@@ -1,6 +1,13 @@
-#ifndef MAIN_H
-#define MAIN_H
+#include <unistd.h>
+#include "main.h"
 
-void print_chessboard(char (*a)[8]);
-
-#endif /* MAIN_H */
+/**
+ * _putchar - writes the character c to stdout
+ * @c: character to print
+ *
+ * Return: 1 on success
+ */
+int _putchar(char c)
+{
+    return write(1, &c, 1);
+}
