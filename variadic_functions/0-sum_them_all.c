@@ -4,9 +4,9 @@
 
 /**
  * sum_them_all - returns the sum of all its parameters 
- * @n: numbers of arguments
+ * @n: numbers of arguments passed of the function
  *
- * Return: sum, or 0 if n == 0
+ * Return: sum of the arguments, or 0 if n == 0
  */
 int sum_them_all(const unsigned int n, ...)
 {
