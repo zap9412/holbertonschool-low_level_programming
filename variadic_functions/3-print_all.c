@@ -1,64 +1,38 @@
+#include "variadic_functions.h"
 #include <stdarg.h>
 #include <stdio.h>
-#include <stdlib.h>
 
-/**
- * struct printer - mapping between a format symbol and a function
- * @symbol: the format symbol (string)
- * @print: function that prints the corresponding argument from va_list
- */
-typedef struct printer
+void print_char(va_list ap)
 {
-	char *symbol;
-	void (*print)(va_list);
-} printer_t;
-
-/* helpers */
-void print_char(va_list args)
-{
-	char c = (char) va_arg(args, int); /* char promoted to int */
+	char c = (char)va_arg(ap, int); /* char promu en int */
 	printf("%c", c);
 }
 
-void print_int(va_list args)
+void print_int(va_list ap)
 {
-	int i = va_arg(args, int);
-	printf("%d", i);
+	printf("%d", va_arg(ap, int));
 }
 
-void print_float(va_list args)
+void print_float(va_list ap)
 {
-	double f = va_arg(args, double); /* float promoted to double */
-	printf("%f", f);
+	printf("%f", va_arg(ap, double)); /* float promu en double */
 }
 
-void print_string(va_list args)
+void print_string(va_list ap)
 {
-	char *s = va_arg(args, char *);
+	char *s = va_arg(ap, char *);
 	if (s == NULL)
 		printf("(nil)");
 	else
 		printf("%s", s);
 }
 
-/**
- * print_all - prints anything based on format string
- * @format: a string where each char indicates the type of the next arg:
- *          'c' -> char
- *          'i' -> integer
- *          'f' -> float
- *          's' -> char * (string)
- *
- * Description: Prints arguments separated by ", ". If a string is NULL,
- * prints "(nil)".
- */
 void print_all(const char * const format, ...)
 {
-	va_list args;
+	va_list ap;
 	int i = 0, j;
 	char *sep = "";
-
-	/* array mapping format symbols to functions */
+	/* tableau d'associations : symbole -> fonction */
 	printer_t funcs[] = {
 		{"c", print_char},
 		{"i", print_int},
@@ -67,19 +41,18 @@ void print_all(const char * const format, ...)
 		{NULL, NULL}
 	};
 
-	va_start(args, format);
-
-	if (format != NULL)
+	va_start(ap, format);
+	if (format)
 	{
-		while (format[i] != '\0')
+		while (format[i])
 		{
 			j = 0;
-			while (funcs[j].symbol != NULL)
+			while (funcs[j].symbol)
 			{
 				if (format[i] == *(funcs[j].symbol))
 				{
 					printf("%s", sep);
-					funcs[j].print(args);
+					funcs[j].print(ap);
 					sep = ", ";
 					break;
 				}
@@ -88,7 +61,6 @@ void print_all(const char * const format, ...)
 			i++;
 		}
 	}
-
-	va_end(args);
+	va_end(ap);
 	printf("\n");
 }
